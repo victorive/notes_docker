@@ -15,18 +15,6 @@
                 <th>Text</th>
                 <td>{{ note.text }}</td>
             </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ note.createdAt ? note.createdAt|date('Y-m-d H:i:s T') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Updated_at</th>
-                <td>{{ note.updatedAt ? note.updatedAt|date('Y-m-d H:i:s T') : '' }}</td>
-            </tr>
-            <tr>
-                <th>IsDeleted</th>
-                <td>{{ note.isDeleted ? 'Yes' : 'No' }}</td>
-            </tr>
         </tbody>
     </table>
 
