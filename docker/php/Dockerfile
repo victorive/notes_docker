@@ -22,13 +22,20 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
+RUN apt-get install -y netcat
 
 WORKDIR /var/www/html
 
 COPY . .
 
-EXPOSE 9000
+RUN APP_ENV=prod composer install --no-dev --optimize-autoloader
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear
+
+RUN npm install
+
+RUN ./node_modules/.bin/encore production
+
+EXPOSE 9000
 
 CMD ["php-fpm"]
