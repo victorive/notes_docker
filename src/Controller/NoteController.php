@@ -20,7 +20,7 @@ class NoteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_note_new', methods: ['GET', 'POST'])]
+    #[Route('note/new', name: 'app_note_new', methods: ['GET', 'POST'])]
     public function new(Request $request, NoteRepository $noteRepository): Response
     {
         $note = new Note();
@@ -39,7 +39,7 @@ class NoteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_note_show', methods: ['GET'])]
+    #[Route('note/{id}', name: 'app_note_show', methods: ['GET'])]
     public function show(Note $note): Response
     {
         return $this->render('note/show.html.twig', [
@@ -47,7 +47,7 @@ class NoteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_note_edit', methods: ['GET', 'POST'])]
+    #[Route('note/{id}/edit', name: 'app_note_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Note $note, NoteRepository $noteRepository): Response
     {
         $form = $this->createForm(NoteType::class, $note);
@@ -65,7 +65,7 @@ class NoteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_note_delete', methods: ['POST'])]
+    #[Route('note/{id}', name: 'app_note_delete', methods: ['POST'])]
     public function delete(Request $request, Note $note, NoteRepository $noteRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$note->getId(), $request->request->get('_token'))) {
