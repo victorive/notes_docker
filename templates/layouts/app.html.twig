@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Notes{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div>
+    <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start">
+                    <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
+                            class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
+                        <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                        <svg id="toggleSidebarMobileClose" class="w-6 h-6 hidden" fill="currentColor"
+                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+
+                    <a href="{{ path('app_note_index') }}" class="text-xl font-bold flex items-center lg:ml-2.5">
+                        <span class="mr-2 w-8">
+                           <svg class="w-8" viewBox="0 0 24 24" stroke-linejoin="round" stroke-width="2"
+                                stroke-linecap="round" stroke-miterlimit="10" stroke="currentColor" fill="none">
+                               <rect x="3" y="1" width="7" height="12"></rect>
+                               <rect x="3" y="17" width="7" height="6"></rect>
+                               <rect x="14" y="1" width="7" height="6"></rect>
+                               <rect x="14" y="11" width="7" height="12"></rect>
+                           </svg>
+                       </span>
+                        <span class="self-center whitespace-nowrap">.Notes</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex overflow-hidden bg-white pt-16">
+        <aside id="sidebar"
+               class="fixed hidden z-20 h-full top-0 left-0 pt-16 flex lg:flex flex-shrink-0 flex-col w-64 transition-width duration-75"
+               aria-label="Sidebar">
+            <div class="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white pt-0">
+                <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+                    <div class="flex-1 px-3 bg-white divide-y space-y-1">
+                        <ul class="space-y-2 pb-2">
+
+                            <li>
+                                <a href="{{ path('app_note_new') }}"
+                                   class="flex peer relative w-full items-center border-l-blue-600 py-3 px-4 text-sm font-medium text-gray-600 outline-none transition-all duration-100 ease-in-out hover:border-l-4 hover:text-blue-600 focus:border-l-4">
+                                 <span class="flex mr-5 w-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path
+                                            d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                                 </span>
+                                    New Note
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('app_note_index') }}"
+                                   class="flex peer relative w-full items-center border-l-blue-600 py-3 px-4 text-sm font-medium text-gray-600 outline-none transition-all duration-100 ease-in-out hover:border-l-4 hover:text-blue-600 focus:border-l-4">
+                                 <span class="flex mr-5 w-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path
+                                            d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                                 </span>
+                                    All Notes
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="bg-gray-900 opacity-50 hidden fixed inset-0 z-10" id="sidebarBackdrop"></div>
+        <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
+            <main>
+
+                {% block body %}{% endblock %}
+
+            </main>
+        </div>
+    </div>
+</body>
+</html>
