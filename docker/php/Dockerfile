@@ -36,6 +36,8 @@ RUN npm install
 
 RUN ./node_modules/.bin/encore production
 
+RUN APP_ENV=prod composer install
+
 EXPOSE 9000
 
 CMD ["php-fpm"]

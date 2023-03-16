@@ -19,3 +19,6 @@ To run this app, you'll need to have the following software installed on your ma
     `docker-compose up`
 
 The app should now be running on `http://localhost:8888`. To stop the app, run `docker-compose down`.
+
+Protected route: `/admin`
+
