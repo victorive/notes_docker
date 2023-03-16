@@ -22,9 +22,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
-RUN apt-get install -y netcat
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/notes-docker
 
 COPY . .
 
@@ -35,8 +34,6 @@ RUN APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear
 RUN npm install
 
 RUN ./node_modules/.bin/encore production
-
-RUN APP_ENV=prod composer install
 
 EXPOSE 9000
 
